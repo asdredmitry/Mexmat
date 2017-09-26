@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <string.h>
+#include "jordan.h"
 double func(int x, int y)
 {
     return x*y;
@@ -53,11 +54,12 @@ int main(int argc, char ** argv)
             {
                 matrix[y*(n + 1) + x] = func(x,y);
                 if(!(x%2))
-                    matrix[y*(n + 2) - 1] += matrix[y*(n + 1) + x];
+                    matrix[y*(n + 1) + n]+= matrix[y*(n + 1) + x];
             }
         }
     }
-    else if(argv == 2)
+    else if(argc == 2)
         matrix = readMatrix(argv[1],n);
+    printMatrix(matrix,n);
     return 0;
 }

@@ -1,3 +1,4 @@
+#include "jordan.h"
 void printMatrix(double * data, int n)
 {
     for(int y = 0; y < n; y++)
