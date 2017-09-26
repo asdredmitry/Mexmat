@@ -61,5 +61,6 @@ int main(int argc, char ** argv)
     else if(argc == 2)
         matrix = readMatrix(argv[1],n);
     printMatrix(matrix,n);
+    delete [] matrix;
     return 0;
 }
