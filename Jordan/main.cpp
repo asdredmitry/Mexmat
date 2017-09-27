@@ -5,7 +5,7 @@
 #include "jordan.h"
 double func(int x, int y)
 {
-    return x*y;
+    return x+y;
 }
 double * readMatrix(char * name, int & n)
 {
@@ -39,27 +39,53 @@ double * readMatrix(char * name, int & n)
     fclose(file);
     return data;
 }
-int main(int argc, char ** argv)
+double * fillInMatrix(int  n)
 {
-    double * matrix;
-    int n;
-    if(argc == 1)
+    double * matrix = new double [n*(n + 1)];
+    memset(matrix,0,sizeof(double)*n*(n+ 1));
+    for(int y = 0; y < n; y++)
     {
-        scanf("%d",&n);
-        matrix = new double [n*(n + 1)];
-        memset(matrix,0,sizeof(double)*n*(n+ 1));
-        for(int y = 0; y < n; y++)
+        for(int x = 0; x < n; x++)
         {
-            for(int x = 0; x < n; x++)
-            {
-                matrix[y*(n + 1) + x] = func(x,y);
-                if(!(x%2))
-                    matrix[y*(n + 1) + n]+= matrix[y*(n + 1) + x];
-            }
+            matrix[y*(n + 1) + x] = func(x,y);
+            if(!(x%2))
+                matrix[y*(n + 1) + n]+= matrix[y*(n + 1) + x];
         }
     }
-    else if(argc == 2)
-        matrix = readMatrix(argv[1],n);
+    return matrix;
+}
+int main()
+{
+    double * matrix(NULL);
+    int n(0);
+    char yes;
+    printf("Read matrix from file?(y/n): ");
+    if(!scanf("%c",&yes))
+    {
+        perror("unexpected input");
+        exit(EXIT_FAILURE);
+    }
+    if(yes == 'y' || yes == 'Y')
+    {
+        char * name = new char[100];
+        memset(name,0, sizeof(char)*100);
+        printf("Insert name of file: ");
+        scanf("%s",name);
+        matrix = readMatrix(name,n);
+        delete [] name;
+    }
+    else if(yes == 'n' || yes == 'N')
+    {
+        printf("Enter the size of matrix: \n");
+        scanf("%d",&n);
+        matrix = fillInMatrix(n);
+    }
+    else
+    {
+        perror("Unexpected input");
+        exit(EXIT_FAILURE);
+    }
     printMatrix(matrix,n);
+    delete [] matrix;
     return 0;
 }
