@@ -72,6 +72,18 @@ int main()
         printf("Insert name of file: ");
         scanf("%s",name);
         matrix = readMatrix(name,n);
+        double * salvation = new double [n];
+        memset(salvation,0,sizeof(double) *n);
+        int * subs = new int[n];
+        for(int i = 0; i < n; i++)
+            subs[i] = i;
+        //printMatrix(matrix,n);
+        //swapCol(matrix,1,2,n);
+        //printMatrix(matrix,n);
+        solveMatrix(matrix,n,salvation,subs);
+        for(int i =0; i < n; i++)
+            printf("%d ",subs[i]);
+        printf("\n");
         delete [] name;
     }
     else if(yes == 'n' || yes == 'N')
@@ -79,13 +91,17 @@ int main()
         printf("Enter the size of matrix: \n");
         scanf("%d",&n);
         matrix = fillInMatrix(n);
+        double * salvation = new double [n];
+        memset(salvation,0,sizeof(double) *n);
+        int * subs = new int[n];
+        solveMatrix(matrix,n,salvation,subs);
     }
     else
     {
         perror("Unexpected input");
         exit(EXIT_FAILURE);
     }
-    printMatrix(matrix,n);
+    //printMatrix(matrix,n);
     delete [] matrix;
     return 0;
 }
