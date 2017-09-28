@@ -46,9 +46,9 @@ void solveMatrix(double * data, int n, double * salvation, int * subs)
             double maxEl = 0;
             for(int i = y; i < n; i++)
             {
-                if(maxEl < abs(data[y*(n + 1) + i]))
+                if(maxEl < dabs(data[y*(n + 1) + i]))
                 {
-                    maxEl = abs(data[y*(n + 1) + i]);
+                    maxEl = dabs(data[y*(n + 1) + i]);
                     maxNum = i;
                 }
             }
