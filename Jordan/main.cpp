@@ -3,9 +3,10 @@
 #include <errno.h>
 #include <string.h>
 #include "jordan.h"
+#include <cmath>
 double func(int x, int y)
 {
-    return x+y;
+    return pow(x,y) + 1 + y;
 }
 double * readMatrix(char * name, int & n)
 {
@@ -38,6 +39,28 @@ double * readMatrix(char * name, int & n)
     }
     fclose(file);
     return data;
+}
+double norm(double * vector,int n)
+{
+    double max(0.0);
+    for(int i = 0; i < n; i++)
+        max = (max > dabs(vector[i])) ? max : dabs(vector[i]);
+    return max;
+}
+double normFunc(double * matrix, double * answer,int n)
+{
+    double * delta = new double [n];
+    memset(delta,0,n*sizeof(double));
+    for(int y = 0; y < n; y++)
+    {
+        for(int x = 0; x < n; x++)
+            delta[y] += answer[x] * matrix[y*(n + 1) + x];
+    }
+    for(int y = 0; y < n; y++)
+        delta[y] -= matrix[y*(n + 1) + n];
+    double norma = norm(delta,n);
+    delete [] delta;
+    return norma;
 }
 double * fillInMatrix(int  n)
 {
@@ -72,19 +95,51 @@ int main()
         printf("Insert name of file: ");
         scanf("%s",name);
         matrix = readMatrix(name,n);
+        double * salvation = new double [n];
+        memset(salvation,0,sizeof(double) *n);
+        int * subs = new int[n];
+        for(int i = 0; i < n; i++)
+            subs[i] = i;
+        solveMatrix(matrix,n,salvation,subs);
+        printf("answer = (");
+        for(int i = 0; i < n; i++)
+            printf("%lf " , salvation[i]);
+        printf(")\n");
+        delete [] matrix;
+        matrix = readMatrix(name,n);
+        printf(" norma %lf ", normFunc(matrix,salvation,n));
+        delete [] name;
+        delete [] salvation;
+        delete [] matrix;
+        delete [] subs;
     }
     else if(yes == 'n' || yes == 'N')
     {
         printf("Enter the size of matrix: \n");
         scanf("%d",&n);
         matrix = fillInMatrix(n);
+        double * salvation = new double [n];
+        memset(salvation,0,sizeof(double) *n);
+        int * subs = new int[n];
+        for(int i = 0; i < n; i++)
+            subs[i] = i;
+        printMatrix(matrix,n);
+        solveMatrix(matrix,n,salvation,subs);
+        printf("answer = (");
+        for(int i = 0; i < n; i++)
+            printf(" %lf ",salvation[i]);
+        printf(")\n");
+        for(int i = 0; i < n; i++)
+            salvation[i] -= !(i%2);
+        printf("norma = %lf \n" , norm(salvation,n));
+        delete [] salvation;
+        delete [] matrix;
+        delete [] subs;
     }
     else
     {
         perror("Unexpected input");
         exit(EXIT_FAILURE);
     }
-    printMatrix(matrix,n);
-    delete [] matrix;
     return 0;
 }

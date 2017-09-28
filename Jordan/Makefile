@@ -1,8 +1,8 @@
 jordan.o: jordan.cpp jordan.h
-	g++ -c jordan.cpp -o jordan.o
+	g++ -c -W jordan.cpp -o jordan.o
 main.o: main.cpp jordan.h
-	g++ -c main.cpp -o main.o
+	g++ -c -W main.cpp -o main.o
 main: main.o jordan.o
-	g++ main.o jordan.o -o main
+	g++ -W main.o jordan.o -o main
 clear:
 	rm  *.o
