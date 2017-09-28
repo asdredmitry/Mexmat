@@ -72,7 +72,6 @@ int main()
         printf("Insert name of file: ");
         scanf("%s",name);
         matrix = readMatrix(name,n);
-        delete [] name;
     }
     else if(yes == 'n' || yes == 'N')
     {
