@@ -98,6 +98,7 @@ int main()
         double * salvation = new double [n];
         memset(salvation,0,sizeof(double) *n);
         int * subs = new int[n];
+        printMatrix(matrix,n);
         for(int i = 0; i < n; i++)
             subs[i] = i;
         solveMatrix(matrix,n,salvation,subs);
@@ -107,7 +108,7 @@ int main()
         printf(")\n");
         delete [] matrix;
         matrix = readMatrix(name,n);
-        printf(" norma %lf ", normFunc(matrix,salvation,n));
+        printf(" norma = %lf ", normFunc(matrix,salvation,n));
         delete [] name;
         delete [] salvation;
         delete [] matrix;
@@ -141,5 +142,6 @@ int main()
         perror("Unexpected input");
         exit(EXIT_FAILURE);
     }
+    printf("\n");
     return 0;
 }

@@ -17,6 +17,7 @@ void printMatrix(double * data, int n)
         }
         printf("\n");
     }
+    printf("\n");
 }
 void swapStr(double * data, int y1, int y2, int n)
 {
@@ -24,7 +25,7 @@ void swapStr(double * data, int y1, int y2, int n)
     for(int x = 0; x < n + 1; x++)
     {
         tmp = data[y1*(n + 1) + x];
-        data[y1*(n + 1) + x] = data[y2*n + x];
+        data[y1*(n + 1) + x] = data[y2*(n + 1) + x];
         data[y2*(n + 1) + x] = tmp;
     }
 }
