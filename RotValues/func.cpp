@@ -15,10 +15,9 @@ void printMatrix(double * matrix,int n)
 double norm(int n, double * matrix)
 {
     double res = 0.0;
-    double tmp = 0.0;
     for(int y = 0; y < n; y++)
     {
-        tmp = 0.0;
+        double tmp = 0.0;
         for(int x = 0; x < n; x++)
         {
             tmp += fabs(matrix[y*n + x]);
@@ -30,20 +29,19 @@ double norm(int n, double * matrix)
 }
 void rotationMatrix(int n, double *matrix)
 {
-        double x,y,r,s,a_ii,a_ij,a_ji,a_jj,cosPhi,sinPhi;
         for (int i = 1; i < n - 1; ++i)
         {
             for (int j = i + 1; j < n; ++j)
             {
-                x = matrix[i * n + i - 1];
-                y = matrix[j * n + i - 1];
+                double x = matrix[i * n + i - 1];
+                double y = matrix[j * n + i - 1];
                 if (fabs(y) < 1e-100)
                     continue;
-                r = sqrt(x * x + y * y);
+                double r = sqrt(x * x + y * y);
                 if (r < 1e-100)
                     continue;
-                cosPhi = x / r;
-                sinPhi = -y / r;
+                double cos = x / r;
+                double sin = -y / r;
                 matrix[i * n + i - 1] = matrix[(i - 1) * n + i] = r;
                 matrix[j * n + i - 1] = matrix[(i - 1) * n + j] = 0.0;
                 for (int k = i + 1; k < n; ++k)
@@ -52,21 +50,21 @@ void rotationMatrix(int n, double *matrix)
                         continue;
                     x = matrix[i * n + k];
                     y = matrix[j * n + k];
-                    matrix[k * n + i] = matrix[i * n + k] = x * cosPhi - y * sinPhi;
-                    matrix[k * n + j] = matrix[j * n + k] = x * sinPhi + y * cosPhi;
+                    matrix[k * n + i] = matrix[i * n + k] = x * cos - y * sin;
+                    matrix[k * n + j] = matrix[j * n + k] = x * sin + y * cos;
                 }
                 x = matrix[i * n + i];
                 y = matrix[j * n + j];
                 r = matrix[i * n + j];
-                s = matrix[j * n + i];
-                a_ii = x * cosPhi - s * sinPhi;
-                a_ji = x * sinPhi + s * cosPhi;
-                a_ij = r * cosPhi - y * sinPhi;
-                a_jj = r * sinPhi + y * cosPhi;
-                matrix[i * n + i] = a_ii * cosPhi - a_ij * sinPhi;
-                matrix[j * n + i] = a_ii * sinPhi + a_ij * cosPhi;
+                double s = matrix[j * n + i];
+                double a_ii = x * cos - s * sin;
+                double a_ji = x * sin + s * cos;
+                double a_ij = r * cos - y * sin;
+                double a_jj = r * sin + y * cos;
+                matrix[i * n + i] = a_ii * cos - a_ij * sin;
+                matrix[j * n + i] = a_ii * sin + a_ij * cos;
                 matrix[i * n + j] = matrix[j * n + i];
-                matrix[j * n + j] = a_ji * sinPhi + a_jj * cosPhi;
+                matrix[j * n + j] = a_ji * sin + a_jj * cos;
             }
         }
 }
