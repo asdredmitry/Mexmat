@@ -8,7 +8,7 @@ void printMatrix(double * matrix,int n)
         printf("\n");
         for(int  x = 0; x < n; x++)
         {
-            printf("%lf ",matrix[y*n + x]);
+            printf("%f ",matrix[y*n + x]);
         }
     }
 }

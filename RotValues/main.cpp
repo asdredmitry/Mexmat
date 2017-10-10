@@ -83,14 +83,17 @@ int main()
     }
     printMatrix(matrix,n);
     double * values = new double[n];
-    int amountOperations(0);\
+    int amountOperations(0);
+    timespec begin,end;
+    clock_gettime(CLOCK_REALTIME,&begin);
     FindValues(n,matrix,values,eps,amountOperations);
+    clock_gettime(CLOCK_REALTIME,&end);
     printf(" \n Values: \n");
     for(int i = 0;i < n; i++)
     {
         printf("%f ",values[i]);
     }
-    printf("\n iterations - %d ",amountOperations);
+    //printf("\n iterations - %d ",amountOperations);
     double inv1 = 0.0;
     double inv2 = 0.0;
     for (int i = 0;  i < n; ++i)
@@ -106,6 +109,8 @@ int main()
     }
     printf("\n delta traces - %g \n",inv1);
     printf("x_i^2 - a_ij*a_ji - %g \n",inv2);
+    double time = end.tv_sec - begin.tv_sec + ((double)(end.tv_nsec - begin.tv_nsec))/1000000000;
+    printf("time needed - %0.30f \n",time);
     delete [] matrix;
     delete [] values;
     return 0;
