@@ -1,34 +1,45 @@
-#include <cv.h>
-#include <highgui.h>
 #include <opencv2/opencv.hpp>
+#include <iostream>
+#include <time.h>
 #include <stdlib.h>
-#include <stdio.h>
-
-IplImage* frame =0;
+using namespace cv;
+using namespace std;
 
 int main(int argc, char* argv[])
 {
     char* filename = argc == 2 ? argv[1] : argv[1];
 
-    printf("[i] file: %s\n", filename);
+    std :: cout << filename << std :: endl;
     cvNamedWindow("original",CV_WINDOW_AUTOSIZE);
-    std :: cout <<  " I am here " << std :: endl;
-    VideoCapture capture(filename);
-    std :: cout <<" and i am here too" << std :: endl;
-    while(1){
-        std :: cout << " I am here now inside while" << std :: endl;
-        capture.read(frame);
-        std :: cout << " a little bit lower "<< std :: endl;
+    VideoCapture cap(filename);
+  	if(!cap.isOpened())
+  	{
+  		std :: cout << "Error opening filestream" << std :: endl;
+  		return -1;
+  	}
+  	while(1)
+  	{
+  		timespec t;
+  		clock_gettime(CLOCK_REALTIME,&t);
+  		Mat frame;
+  		cap >> frame;
+  		if(frame.empty())
+  			break;
+  		srand(t.tv_nsec);
+  		for(int j = 0; j < 10; j++)
+  		{
 
-        cvShowImage( "original", frame );
-
-        char c = cvWaitKey(33);
-        if (c == 27) {
-            break;
-        }
-    }
-
-    //cvReleaseCapture( &capture );
-    cvDestroyWindow("original");
+  			for(int i = 0; i < 10; i++)
+  			{
+  				frame.at<Vec3d>(rand()%(frame.rows - 10) , rand()%(frame.cols)) = Vec3d(rand()%256,rand()%256,rand()%256); 
+  			}
+  		}
+  		imshow("original",frame);
+  		char c = (char)waitKey(25);
+  		if(c == 27)
+  			break;
+  	}
+  	cap.release();
+    destroyAllWindows();
     return 0;
 }
