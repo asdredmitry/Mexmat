@@ -71,7 +71,7 @@ void solveMatrix(double * data, int n, double * salvation, int * subs)
                 data[y*(n + 1) + i] /= data[y*(n + 1) + y];
             printMatrix(data,n);
            for(int y1 = 0; y1 < n; y1++)
-            {
+           {
                 if(y1 != y)
                 {
                     for(int x1 = n; x1 >= y; x1--)
@@ -81,5 +81,7 @@ void solveMatrix(double * data, int n, double * salvation, int * subs)
                 }
             }
     }
+    for(int i =0; i < n; i++)
+        salvation[i] = data[subs[i]*(n + 1) + n];
     printMatrix(data,n);
 }
