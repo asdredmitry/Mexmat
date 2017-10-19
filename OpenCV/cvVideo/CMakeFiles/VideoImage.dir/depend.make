@@ -35,16 +35,6 @@ CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/core/type
 CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/core/types_c.h
 CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/core/utility.hpp
 CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/core/version.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudaarithm.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudabgsegm.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudacodec.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudafeatures2d.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudafilters.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudaimgproc.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudaobjdetect.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudaoptflow.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudastereo.hpp
-CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/cudawarping.hpp
 CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/features2d.hpp
 CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/flann.hpp
 CMakeFiles/VideoImage.dir/VideoImage.cpp.o: /usr/local/include/opencv2/flann/all_indices.h
