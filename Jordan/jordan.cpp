@@ -17,6 +17,7 @@ void printMatrix(double * data, int n)
         }
         printf("\n");
     }
+    printf("\n");
 }
 void swapStr(double * data, int y1, int y2, int n)
 {
@@ -24,7 +25,7 @@ void swapStr(double * data, int y1, int y2, int n)
     for(int x = 0; x < n + 1; x++)
     {
         tmp = data[y1*(n + 1) + x];
-        data[y1*(n + 1) + x] = data[y2*n + x];
+        data[y1*(n + 1) + x] = data[y2*(n + 1) + x];
         data[y2*(n + 1) + x] = tmp;
     }
 }
@@ -46,15 +47,12 @@ void solveMatrix(double * data, int n, double * salvation, int * subs)
             double maxEl = 0;
             for(int i = y; i < n; i++)
             {
-                std :: cout << y*n + i << "   " << std :: endl;
-                if(maxEl < abs(data[y*(n + 1) + i]))
+                if(maxEl < dabs(data[y*(n + 1) + i]))
                 {
-                    maxEl = abs(data[y*(n + 1) + i]);
+                    maxEl = dabs(data[y*(n + 1) + i]);
                     maxNum = i;
                 }
             }
-            std :: cout << maxEl << " "  << maxNum << " maxEl " << std :: endl;
-            printMatrix(data,n);
             if(!maxEl)
             {
                 perror("det Matrix is 0");
@@ -63,25 +61,27 @@ void solveMatrix(double * data, int n, double * salvation, int * subs)
             if(maxNum != y)
             {
                 int tmp = subs[y];
-                subs[y] = maxNum;
+                subs[y] = subs[maxNum];
                 subs[maxNum] = tmp;
                 swapCol(data,y,maxNum,n);
             }
             for(int i = n; i >= y; i--)
                 data[y*(n + 1) + i] /= data[y*(n + 1) + y];
-            printMatrix(data,n);
            for(int y1 = 0; y1 < n; y1++)
            {
                 if(y1 != y)
                 {
                     for(int x1 = n; x1 >= y; x1--)
-                    {
                         data[y1*(n + 1) + x1] -= data[y*(n + 1) + x1]*data[y1*(n + 1) + y];
-                    }
                 }
             }
     }
+<<<<<<< HEAD
     for(int i =0; i < n; i++)
         salvation[i] = data[subs[i]*(n + 1) + n];
     printMatrix(data,n);
+=======
+    for(int i = 0; i < n; i++)
+        salvation[subs[i]] = data[i*(n + 1) + n];
+>>>>>>> 9bd20c9c835eeb1d13fecddf4b0be4aea4087410
 }
