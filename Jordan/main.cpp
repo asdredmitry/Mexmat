@@ -3,10 +3,11 @@
 #include <errno.h>
 #include <string.h>
 #include "jordan.h"
+#include <time.h>
 #include <cmath>
 double func(int x, int y)
 {
-    return pow(x,y) + 1 + y;
+    return rand()%100000;
 }
 double * readMatrix(char * name, int & n)
 {
@@ -79,6 +80,7 @@ double * fillInMatrix(int  n)
 }
 int main()
 {
+    srand(time(0));
     double * matrix(NULL);
     int n(0);
     char yes;
@@ -98,7 +100,7 @@ int main()
         double * salvation = new double [n];
         memset(salvation,0,sizeof(double) *n);
         int * subs = new int[n];
-        printMatrix(matrix,n);
+       // printMatrix(matrix,n);
         for(int i = 0; i < n; i++)
             subs[i] = i;
         solveMatrix(matrix,n,salvation,subs);
@@ -124,12 +126,16 @@ int main()
         int * subs = new int[n];
         for(int i = 0; i < n; i++)
             subs[i] = i;
-        printMatrix(matrix,n);
+        //printMatrix(matrix,n);
+	timespec  begin, end;
+	clock_gettime(CLOCK_REALTIME,&begin);
         solveMatrix(matrix,n,salvation,subs);
+	clock_gettime(CLOCK_REALTIME, &end);
         printf("answer = (");
         for(int i = 0; i < n; i++)
             printf(" %lf ",salvation[i]);
         printf(")\n");
+    printf(" time - %lf  \n" , end.tv_sec - begin.tv_sec + (end.tv_nsec - begin.tv_nsec)/1000000000.0);
         for(int i = 0; i < n; i++)
             salvation[i] -= !(i%2);
         printf("norma = %lf \n" , norm(salvation,n));
