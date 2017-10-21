@@ -76,12 +76,9 @@ void solveMatrix(double * data, int n, double * salvation, int * subs)
                 }
             }
     }
-<<<<<<< HEAD
     for(int i =0; i < n; i++)
         salvation[i] = data[subs[i]*(n + 1) + n];
     printMatrix(data,n);
-=======
     for(int i = 0; i < n; i++)
         salvation[subs[i]] = data[i*(n + 1) + n];
->>>>>>> 9bd20c9c835eeb1d13fecddf4b0be4aea4087410
 }
