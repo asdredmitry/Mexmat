@@ -123,6 +123,32 @@ VideoImage/fast:
 	$(MAKE) -f CMakeFiles/VideoImage.dir/build.make CMakeFiles/VideoImage.dir/build
 .PHONY : VideoImage/fast
 
+#=============================================================================
+# Target rules for targets named videofiltr
+
+# Build rule for target.
+videofiltr: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 videofiltr
+.PHONY : videofiltr
+
+# fast build rule for target.
+videofiltr/fast:
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/build
+.PHONY : videofiltr/fast
+
+#=============================================================================
+# Target rules for targets named lol
+
+# Build rule for target.
+lol: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lol
+.PHONY : lol
+
+# fast build rule for target.
+lol/fast:
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/build
+.PHONY : lol/fast
+
 VideoImage.o: VideoImage.cpp.o
 
 .PHONY : VideoImage.o
@@ -150,6 +176,60 @@ VideoImage.cpp.s:
 	$(MAKE) -f CMakeFiles/VideoImage.dir/build.make CMakeFiles/VideoImage.dir/VideoImage.cpp.s
 .PHONY : VideoImage.cpp.s
 
+lol.o: lol.cpp.o
+
+.PHONY : lol.o
+
+# target to build an object file
+lol.cpp.o:
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/lol.cpp.o
+.PHONY : lol.cpp.o
+
+lol.i: lol.cpp.i
+
+.PHONY : lol.i
+
+# target to preprocess a source file
+lol.cpp.i:
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/lol.cpp.i
+.PHONY : lol.cpp.i
+
+lol.s: lol.cpp.s
+
+.PHONY : lol.s
+
+# target to generate assembly for a file
+lol.cpp.s:
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/lol.cpp.s
+.PHONY : lol.cpp.s
+
+videofiltr.o: videofiltr.cpp.o
+
+.PHONY : videofiltr.o
+
+# target to build an object file
+videofiltr.cpp.o:
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/videofiltr.cpp.o
+.PHONY : videofiltr.cpp.o
+
+videofiltr.i: videofiltr.cpp.i
+
+.PHONY : videofiltr.i
+
+# target to preprocess a source file
+videofiltr.cpp.i:
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/videofiltr.cpp.i
+.PHONY : videofiltr.cpp.i
+
+videofiltr.s: videofiltr.cpp.s
+
+.PHONY : videofiltr.s
+
+# target to generate assembly for a file
+videofiltr.cpp.s:
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/videofiltr.cpp.s
+.PHONY : videofiltr.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -157,11 +237,19 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... rebuild_cache"
 	@echo "... VideoImage"
+	@echo "... videofiltr"
+	@echo "... lol"
+	@echo "... rebuild_cache"
 	@echo "... VideoImage.o"
 	@echo "... VideoImage.i"
 	@echo "... VideoImage.s"
+	@echo "... lol.o"
+	@echo "... lol.i"
+	@echo "... lol.s"
+	@echo "... videofiltr.o"
+	@echo "... videofiltr.i"
+	@echo "... videofiltr.s"
 .PHONY : help
 
 

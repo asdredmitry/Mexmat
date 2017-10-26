@@ -10,6 +10,7 @@ CMakeFiles/VideoImage.dir/VideoImage.cpp.o
  /usr/local/include/opencv2/core/affine.hpp
  /usr/local/include/opencv2/core/base.hpp
  /usr/local/include/opencv2/core/bufferpool.hpp
+ /usr/local/include/opencv2/core/core.hpp
  /usr/local/include/opencv2/core/core_c.h
  /usr/local/include/opencv2/core/cuda.hpp
  /usr/local/include/opencv2/core/cuda.inl.hpp
@@ -36,6 +37,16 @@ CMakeFiles/VideoImage.dir/VideoImage.cpp.o
  /usr/local/include/opencv2/core/types_c.h
  /usr/local/include/opencv2/core/utility.hpp
  /usr/local/include/opencv2/core/version.hpp
+ /usr/local/include/opencv2/cudaarithm.hpp
+ /usr/local/include/opencv2/cudabgsegm.hpp
+ /usr/local/include/opencv2/cudacodec.hpp
+ /usr/local/include/opencv2/cudafeatures2d.hpp
+ /usr/local/include/opencv2/cudafilters.hpp
+ /usr/local/include/opencv2/cudaimgproc.hpp
+ /usr/local/include/opencv2/cudaobjdetect.hpp
+ /usr/local/include/opencv2/cudaoptflow.hpp
+ /usr/local/include/opencv2/cudastereo.hpp
+ /usr/local/include/opencv2/cudawarping.hpp
  /usr/local/include/opencv2/features2d.hpp
  /usr/local/include/opencv2/flann.hpp
  /usr/local/include/opencv2/flann/all_indices.h
@@ -70,6 +81,7 @@ CMakeFiles/VideoImage.dir/VideoImage.cpp.o
  /usr/local/include/opencv2/flann/saving.h
  /usr/local/include/opencv2/flann/timer.h
  /usr/local/include/opencv2/highgui.hpp
+ /usr/local/include/opencv2/highgui/highgui.hpp
  /usr/local/include/opencv2/highgui/highgui_c.h
  /usr/local/include/opencv2/imgcodecs.hpp
  /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h

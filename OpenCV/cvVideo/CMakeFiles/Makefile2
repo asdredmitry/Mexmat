@@ -97,6 +97,80 @@ clean: CMakeFiles/VideoImage.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/videofiltr.dir
+
+# All Build rule for target.
+CMakeFiles/videofiltr.dir/all:
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/depend
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles --progress-num=5,6 "Built target videofiltr"
+.PHONY : CMakeFiles/videofiltr.dir/all
+
+# Include target in all.
+all: CMakeFiles/videofiltr.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/videofiltr.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/videofiltr.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles 0
+.PHONY : CMakeFiles/videofiltr.dir/rule
+
+# Convenience name for target.
+videofiltr: CMakeFiles/videofiltr.dir/rule
+
+.PHONY : videofiltr
+
+# clean rule for target.
+CMakeFiles/videofiltr.dir/clean:
+	$(MAKE) -f CMakeFiles/videofiltr.dir/build.make CMakeFiles/videofiltr.dir/clean
+.PHONY : CMakeFiles/videofiltr.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/videofiltr.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/lol.dir
+
+# All Build rule for target.
+CMakeFiles/lol.dir/all:
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/depend
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles --progress-num=3,4 "Built target lol"
+.PHONY : CMakeFiles/lol.dir/all
+
+# Include target in all.
+all: CMakeFiles/lol.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/lol.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/lol.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles 0
+.PHONY : CMakeFiles/lol.dir/rule
+
+# Convenience name for target.
+lol: CMakeFiles/lol.dir/rule
+
+.PHONY : lol
+
+# clean rule for target.
+CMakeFiles/lol.dir/clean:
+	$(MAKE) -f CMakeFiles/lol.dir/build.make CMakeFiles/lol.dir/clean
+.PHONY : CMakeFiles/lol.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/lol.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Special targets to cleanup operation of make.
 
 # Special rule to run CMake to check the build system integrity.

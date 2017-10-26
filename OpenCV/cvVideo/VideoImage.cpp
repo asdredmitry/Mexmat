@@ -1,4 +1,6 @@
 #include <opencv2/opencv.hpp>
+#include <opencv2/highgui/highgui.hpp>
+#include <opencv2/core/core.hpp>
 #include <iostream>
 #include <time.h>
 #include <stdlib.h>
@@ -49,6 +51,18 @@ int main(int argc, char* argv[])
     std :: cout << filename << std :: endl;
     cvNamedWindow("original",CV_WINDOW_AUTOSIZE);
     VideoCapture cap(filename);
+    std :: cout << cap.get(CV_CAP_PROP_FPS) << std :: endl;;
+    cv::VideoWriter output_cap(argv[2],
+                   cap.get(CV_CAP_PROP_FOURCC),
+                   cap.get(CV_CAP_PROP_FPS)/3,
+                   cv::Size(cap.get(CV_CAP_PROP_FRAME_WIDTH),
+                   cap.get(CV_CAP_PROP_FRAME_HEIGHT)));
+
+    if (!output_cap.isOpened())
+    {
+            std::cout << "!!! Output video could not be opened" << std::endl;
+            return 0;
+    }
   	if(!cap.isOpened())
   	{
   		std :: cout << "Error opening filestream" << std :: endl;
@@ -63,13 +77,14 @@ int main(int argc, char* argv[])
   		if(frame.empty())
   			break;
   		srand(t.tv_nsec);
-                for(int i = 0; i < 100; i++)
+                /*for(int i = 0; i < 100; i++)
                 {
                     for(int j =0; j < 100; j++)
-                        frame.at<Vec3b>((rand()%(frame.rows - 1))*frame.cols + rand()%(frame.cols - 1)) = Vec3b(0,0,0);
+                        //frame.at<Vec3b>((rand()%(frame.rows - 1))*frame.cols + rand()%(frame.cols - 1)) = Vec3b(0,0,0);
                 }
-                Mat image2 = frame.clone();
-                for(int y = 0; y < frame.rows/2; y++)
+                */
+                /*Mat image2 = frame.clone();
+                for(int y = 0; y < frame.rows; y++)
   		{
 
                         for(int x = 0; x < frame.cols; x++)
@@ -77,12 +92,15 @@ int main(int argc, char* argv[])
                                 image2.at<Vec3b>(y,x) = mult(matrix,frame,x,y);
   			}
   		}
-                imshow("original",image2);
-  		char c = (char)waitKey(25);
-  		if(c == 27)
-  			break;
+                */
+                output_cap << frame;
+                //imshow("original",image2);
+                //char c = (char)waitKey(25);
+                //if(c == 27)
+                //	break;
   	}
   	cap.release();
+         output_cap.release();
     destroyAllWindows();
     return 0;
 }
