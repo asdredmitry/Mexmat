@@ -14,7 +14,7 @@ void kuwaharaFiltr(Mat & frame)
     Mat tmp = frame.clone();
     int r = 4;
     for(int x = 0; x < tmp.cols; x++)
-    {\
+    {
         for(int y = 0; y < tmp.rows; y++)
         {
             //std :: cout << x << " " << y << " : ";
