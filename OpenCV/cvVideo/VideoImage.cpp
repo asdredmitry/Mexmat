@@ -1,106 +1,100 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/core/core.hpp>
-#include <iostream>
+#include <string>
 #include <time.h>
 #include <stdlib.h>
+#include <limits.h>
+#include <opencv2/imgcodecs/imgcodecs.hpp>
+#include <opencv2/videoio/videoio.hpp>
 using namespace cv;
 using namespace std;
-Vec3b mult(double * matrix, Mat & image,int x,int y)
+void kuwaharaFiltr(Mat & frame)
 {
-    Vec3b tmp(0,0,0);
-    double val1 = 0;
-    double val2 = 0;
-    double val3 = 0;
-    //std :: cout << matrix << std :: endl;
-    for(int i = -1; i <= 1; i++)
-    {
-        //tmp = Vec3b(0,0,0);
-        for(int j = -1; j <= 1; j++)
+    Mat tmp = frame.clone();
+    int r = 4;
+    for(int x = 0; x < tmp.cols; x++)
+    {\
+        for(int y = 0; y < tmp.rows; y++)
         {
-             if(x + i < image.cols && y + j < image.rows && x + i >= 0 && y + j>= 0)
-             {
-                //tmp += image.at<Vec3b>(y + j,x + i)*matrix[(j + 1)*3 + i + 1];
-                 val1 += image.at<Vec3b>(y + j,x + i)[0]*matrix[(j + 1)*3 + i + 1];
-                 val2 += image.at<Vec3b>(y + j,x + i)[1]*matrix[(j + 1)*3 + i + 1];
-                 val3 += image.at<Vec3b>(y + j,x + i)[2]*matrix[(j + 1)*3 + i + 1];
-             }
+            //std :: cout << x << " " << y << " : ";
+            double mid[4] = {0,0,0,0};
+            double dis[4] = {0,0,0,0};
+            for(int t = 0; t < 4; t++)
+            {
+               int x_(x),y_(y);
+               if(t == 0)
+               {
+                   x_ -= r;
+                   y_ -= r;
+               }
+               else if(t == 1)
+               {
+                   x_ += 1;
+                   y_ -= r;
+               }
+               else if(t == 2)
+               {
+                   x_ -= r;
+                   y_ += 1;
+               }
+               else if(t == 3)
+               {
+                   x_++;
+                   y_++;
+               }
+               if(x_ >= 0 && x_ + r < tmp.cols && y_ >= 0 && y_ + r < tmp.rows)
+               {
+                   //std :: cout << "I am here " << std :: endl;
+                    for(int ix = 0; ix < r; ix++)
+                    {
+                        for(int iy = 0; iy < r; iy++)
+                        {
+                            mid[t] += tmp.at<uchar>(Point(x_ + ix,y_ + iy));
+                        }
+                    }
+                    mid[t] /= r*r;
+                    for(int ix = 0; ix < r; ix++)
+                    {
+                        for(int iy = 0; iy < r; iy++)
+                        {
+                            dis[t] += ((double)(tmp.at<uchar>(Point(x_ + ix,y_ + iy))) - mid[t])*((double)(tmp.at<uchar>(Point(x_ + ix,y_ + iy))) - mid[t]);
+                        }
+                    }
+               }
+               else
+                   dis[t] = DBL_MAX;
+            }
+            double min;
+            int s(0);
+            for(int i = 0; i < 4; i++)
+            {
+                if(i == 0)
+                    min = dis[i];
+                else
+                {
+                    if(min > dis[i])
+                    {
+                        min = dis[i];
+                        s = i;
+                    }
+                }
+            }
+            frame.at<uchar>(Point(x,y)) = mid[s];
         }
     }
-    if(val1 < 0)
-        val1 = 0;
-    if(val2 < 0)
-        val2 = 0;
-    if(val3 < 0)
-        val3 = 0;
-    if(val3 > 255)
-        val3 = 255;
-    if(val2 > 255)
-        val2 = 255;
-    if(val1 > 255)
-        val1 = 255;
-    tmp[0] = val1;
-    tmp[1] = val2;
-    tmp[2] = val3;
-    return tmp;
 }
-int main(int argc, char* argv[])
+int main(int argc, char ** argv)
 {
-    char* filename = argc == 2 ? argv[1] : argv[1];
-    double matrix[9] = {-1.0, -1.0, -1.0, -1.0, 9.0, -1.0, -1.0, -1.0, -1.0};
-    std :: cout << filename << std :: endl;
-    cvNamedWindow("original",CV_WINDOW_AUTOSIZE);
-    VideoCapture cap(filename);
-    std :: cout << cap.get(CV_CAP_PROP_FPS) << std :: endl;;
-    cv::VideoWriter output_cap(argv[2],
-                   cap.get(CV_CAP_PROP_FOURCC),
-                   cap.get(CV_CAP_PROP_FPS)/3,
-                   cv::Size(cap.get(CV_CAP_PROP_FRAME_WIDTH),
-                   cap.get(CV_CAP_PROP_FRAME_HEIGHT)));
-
-    if (!output_cap.isOpened())
-    {
-            std::cout << "!!! Output video could not be opened" << std::endl;
-            return 0;
-    }
-  	if(!cap.isOpened())
-  	{
-  		std :: cout << "Error opening filestream" << std :: endl;
-  		return -1;
-  	}
-  	while(1)
-  	{
-  		timespec t;
-  		clock_gettime(CLOCK_REALTIME,&t);
-  		Mat frame;
-  		cap >> frame;
-  		if(frame.empty())
-  			break;
-  		srand(t.tv_nsec);
-                /*for(int i = 0; i < 100; i++)
-                {
-                    for(int j =0; j < 100; j++)
-                        //frame.at<Vec3b>((rand()%(frame.rows - 1))*frame.cols + rand()%(frame.cols - 1)) = Vec3b(0,0,0);
-                }
-                */
-                /*Mat image2 = frame.clone();
-                for(int y = 0; y < frame.rows; y++)
-  		{
-
-                        for(int x = 0; x < frame.cols; x++)
-  			{
-                                image2.at<Vec3b>(y,x) = mult(matrix,frame,x,y);
-  			}
-  		}
-                */
-                output_cap << frame;
-                //imshow("original",image2);
-                //char c = (char)waitKey(25);
-                //if(c == 27)
-                //	break;
-  	}
-  	cap.release();
-         output_cap.release();
+    Mat image = imread(argv[1]);
+    Mat gray;
+    namedWindow("Original");
+    namedWindow("Filtr");
+    cvtColor(image,gray,CV_RGB2GRAY);
+    imshow("Original",gray);
+    kuwaharaFiltr(gray);
+    imshow("Filtr",gray);
+    char c = waitKey(0);
     destroyAllWindows();
     return 0;
 }

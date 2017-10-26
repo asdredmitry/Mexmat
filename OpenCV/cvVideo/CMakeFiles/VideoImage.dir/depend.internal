@@ -84,6 +84,7 @@ CMakeFiles/VideoImage.dir/VideoImage.cpp.o
  /usr/local/include/opencv2/highgui/highgui.hpp
  /usr/local/include/opencv2/highgui/highgui_c.h
  /usr/local/include/opencv2/imgcodecs.hpp
+ /usr/local/include/opencv2/imgcodecs/imgcodecs.hpp
  /usr/local/include/opencv2/imgcodecs/imgcodecs_c.h
  /usr/local/include/opencv2/imgproc.hpp
  /usr/local/include/opencv2/imgproc/imgproc_c.h
@@ -120,6 +121,7 @@ CMakeFiles/VideoImage.dir/VideoImage.cpp.o
  /usr/local/include/opencv2/video/tracking.hpp
  /usr/local/include/opencv2/video/tracking_c.h
  /usr/local/include/opencv2/videoio.hpp
+ /usr/local/include/opencv2/videoio/videoio.hpp
  /usr/local/include/opencv2/videoio/videoio_c.h
  /usr/local/include/opencv2/videostab.hpp
  /usr/local/include/opencv2/videostab/deblurring.hpp
