@@ -1,10 +1,10 @@
-file(REMOVE_RECURSE
+FILE(REMOVE_RECURSE
   "CMakeFiles/lol.dir/lol.cpp.o"
   "lol.pdb"
   "lol"
 )
 
 # Per-language clean rules from dependency scanning.
-foreach(lang CXX)
-  include(CMakeFiles/lol.dir/cmake_clean_${lang}.cmake OPTIONAL)
-endforeach()
+FOREACH(lang CXX)
+  INCLUDE(CMakeFiles/lol.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

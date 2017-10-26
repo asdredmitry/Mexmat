@@ -1,5 +1,3 @@
-/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles/edit_cache.dir
-/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles/VideoImage.dir
-/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles/videofiltr.dir
-/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles/lol.dir
-/home/dmitry/Mexmat/OpenCV/cvVideo/CMakeFiles/rebuild_cache.dir
+/var/home/student/Mexmat/OpenCV/cvVideo/CMakeFiles/VideoImage.dir
+/var/home/student/Mexmat/OpenCV/cvVideo/CMakeFiles/lol.dir
+/var/home/student/Mexmat/OpenCV/cvVideo/CMakeFiles/videofiltr.dir

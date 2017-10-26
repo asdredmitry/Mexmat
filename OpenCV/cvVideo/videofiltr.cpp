@@ -5,8 +5,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <opencv2/imgcodecs/imgcodecs.hpp>
-#include <opencv2/videoio/videoio.hpp>
 
 using namespace cv;
 using namespace std;
@@ -87,6 +85,7 @@ void kuwaharaFiltr(Mat & frame)
 }
 int main(int argc, char * argv[])
 {
+    std :: cout << argc;
     VideoCapture cap(argv[1]);
     if(!cap.isOpened())
     {
@@ -104,7 +103,6 @@ int main(int argc, char * argv[])
         std::cout << "!!! Output video could not be opened" << std::endl;
         return 0;
     }
-    int i = 0;
     while(1)
     {
         Mat tmp;

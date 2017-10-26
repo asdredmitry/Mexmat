@@ -5,8 +5,6 @@
 #include <time.h>
 #include <stdlib.h>
 #include <limits.h>
-#include <opencv2/imgcodecs/imgcodecs.hpp>
-#include <opencv2/videoio/videoio.hpp>
 using namespace cv;
 using namespace std;
 void kuwaharaFiltr(Mat & frame)
@@ -86,6 +84,7 @@ void kuwaharaFiltr(Mat & frame)
 }
 int main(int argc, char ** argv)
 {
+    std :: cout << argc;
     Mat image = imread(argv[1]);
     Mat gray;
     namedWindow("Original");
@@ -95,6 +94,9 @@ int main(int argc, char ** argv)
     kuwaharaFiltr(gray);
     imshow("Filtr",gray);
     char c = waitKey(0);
+    std :: cout << c;
+    gray.release();
+    image.release();
     destroyAllWindows();
     return 0;
 }
