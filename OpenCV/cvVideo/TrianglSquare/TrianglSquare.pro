@@ -24,8 +24,6 @@ LIBS += -lopencv_video
 LIBS += -lopencv_features2d
 LIBS += -lopencv_calib3d
 LIBS += -lopencv_objdetect
-LIBS += -lopencv_contrib
-LIBS += -lopencv_legacy
 LIBS += -lopencv_flann
 
 SOURCES += main.cpp

@@ -47,35 +47,24 @@ void drawFigures(int amount, Mat & img)
         }
     }
 }
-void isRectangle(Mat & image,int x, int y,Point & leftUp, Point & leftDown, Point & rightUp, Point & rightDown)
+void isRectangle(Mat & image,int  x, int  y,int &  up, int & down, int & right, int & left,int & amount)
 {
-    if(x <= leftUp.x && y <= leftUp.y)
-    {
-        leftUp.x = x;
-        leftUp.y = y;
-    }
-    else if(x <= leftDown.x && y >= leftDown.y)
-    {
-        leftDown.x = x;
-        leftDown.y = y;
-    }
-    else if(x >= rightUp.x && y <= rightUp.y)
-    {
-        rightUp.x = x;
-        rightUp.y = y;
-    }
-    else if(x >= rightDown.x && y >= rightDown.y)
-    {
-        rightDown.x = x;
-        rightDown.y = y;
-    }
+    amount ++;
+    if(x < left)
+        left = x;
+    if(x > right)
+        right = x;
+    if(y < up)
+        up = y;
+    if(y > down)
+        down = y;
     image.at<uchar>(x,y) = 255;
     for(int i = -1; i < 2; i++)
     {
         for(int j = -1; j < 2; j++)
         {
             if(image.at<uchar>(x + i , y + j) == 0)
-                isRectangle(image,x + i,y + j,leftUp,leftDown,rightUp,rightDown);
+                isRectangle(image,x + i,y + j,up,down,right,left,amount);
         }
     }
 }
@@ -87,33 +76,49 @@ int main()
     namedWindow("Original");
     drawFigures(4,image);
     imshow("Original",image);
-    GaussianBlur( image, output, Size( 51, 51 ), 0, 0 );
+    GaussianBlur( image, output, Size( 5, 5), 0, 0 );
     namedWindow("GaussianBlur");
     imshow("GaussianBlur",output);
     Mat gray ;
-    cvtColor(image,gray,CV_RGB2GRAY);
+    cvtColor(output,gray,CV_RGB2GRAY);
     Mat result;
     cv::threshold(gray, result, 0, 255, CV_THRESH_BINARY | CV_THRESH_OTSU);
     namedWindow("Result otsu");
     imshow("Result otsu",result);
+    namedWindow("With lines");
+    Mat withLines = image.clone();
     int counterCircle = 0;
     int counterSquare = 0;
+    int amount(0);
     for(int i = 0; i < result.cols; i++)
     {
         for(int j = 0; j < result.rows; j++)
         {
             if(result.at<uchar>(i,j) == 0)
             {
-                Point leftUp(INT32_MAX,INT32_MAX),leftDown(INT32_MAX,0),rightUp(0,INT32_MAX),rightDown(0,0);
-                isRectangle(result,i,j,leftUp,leftDown,rightUp,rightDown);
-                //std :: cout << rightUp.y - leftUp.y << std :: endl;
-                if(rightUp.y - leftUp.y == 0)
-                    counterSquare++;
-                else
+                amount = 0;
+                int up(INT32_MAX),down(0),right(0),left(INT32_MAX);
+                isRectangle(result,i,j,up,down,right,left,amount);
+                if(fabs(amount / double((abs(left - right)*abs(up - down)) ) - M_PI/4) < 0.2)
+                {
+                    Point p[4];
+                    p[0] = Point2d(up,left);
+                    p[1] = Point2d(down,left);
+                    p[2] = Point2d(down,right);
+                    p[3] = Point2d(up,right);
+                    for(int i = 0; i < 4; i++)
+                        line(withLines,p[i],p[(i + 1 < 4) ? i + 1 : 0],Scalar(0,255,0),2);
                     counterCircle++;
+                }
+                else
+                    counterSquare++;
+                //std :: cout << rightUp.y - leftUp.y << std :: endl;
+
+                std :: cout << "amount " << amount  << " " << down<< " " << up << " " << right << " " << left << " " << amount / double((abs(left - right)*abs(down- up)) + 1) << " " << M_PI/4 << std ::  endl;
             }
         }
     }
+    imshow("With lines",withLines);
     std :: cout << counterCircle << " circle" << std :: endl;
     std :: cout << counterSquare << " square " << std :: endl;
     waitKey(0);
