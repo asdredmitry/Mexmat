@@ -36,6 +36,20 @@ void drawFigures(int amount, Mat & img)
             int down = (j + 1)*(double)img.rows/(double)amount;
             Point p1(left + rand()%(right - left),up + rand()%(down - up));
             Point p2(left + rand()%(right - left),up + rand()%(down - up));
+            if(abs(p1.x - p2.x) < 10)
+            {
+                if(p1.x > p2.x)
+                    p1.x += 10;
+                else
+                    p2.x += 10;
+            }
+            if(abs(p1.y - p2.y) < 10)
+            {
+                if(p1.y > p2.y)
+                    p1.y += 10;
+                else
+                    p2.y += 10;
+            }
             if(rand()%2)
                 rectangle(img,p1,p2,Scalar(0,0,0),CV_FILLED);
             else
@@ -63,11 +77,19 @@ void isRectangle(Mat & image,int  x, int  y,int &  up, int & down, int & right, 
     {
         for(int j = -1; j < 2; j++)
         {
-            if(image.at<uchar>(x + i , y + j) == 0)
+            if(image.at<uchar>(x + i , y + j) == 0 && x + i >= 0 && x + i < image.cols && y + j < image.rows && y + j >= 0)
                 isRectangle(image,x + i,y + j,up,down,right,left,amount);
         }
     }
 }
+void noise(int amount,Mat & image)
+{
+    std :: cout << image.cols << " " << image.rows << std :: endl;
+    for(int i = 0; i < amount; i++)
+        image.at<Vec3f>(rand()%(image.cols - 3),rand()%(image.rows - 3)) = Vec3f(rand()%255,rand()%255,rand()%255);
+    std :: cout << " and here" << std :: endl;
+}
+
 int main()
 {
     Mat image = Mat::zeros(800,800,CV_8UC3);
@@ -76,6 +98,7 @@ int main()
     namedWindow("Original");
     drawFigures(4,image);
     imshow("Original",image);
+    noise(10009,image);
     GaussianBlur( image, output, Size( 5, 5), 0, 0 );
     namedWindow("GaussianBlur");
     imshow("GaussianBlur",output);
@@ -99,22 +122,24 @@ int main()
                 amount = 0;
                 int up(INT32_MAX),down(0),right(0),left(INT32_MAX);
                 isRectangle(result,i,j,up,down,right,left,amount);
-                if(fabs(amount / double((abs(left - right)*abs(up - down)) ) - M_PI/4) < 0.2)
+                if(amount > 10)
                 {
-                    Point p[4];
-                    p[0] = Point2d(up,left);
-                    p[1] = Point2d(down,left);
-                    p[2] = Point2d(down,right);
-                    p[3] = Point2d(up,right);
-                    for(int i = 0; i < 4; i++)
-                        line(withLines,p[i],p[(i + 1 < 4) ? i + 1 : 0],Scalar(0,255,0),2);
-                    counterCircle++;
+                    if(fabs(amount / double((abs(left - right)*abs(up - down)) + 1 ) - M_PI/4) < 0.18 && fabs(fabs(left - right) - fabs(up - down)) < 6)
+                    {
+                        Point p[4];
+                        p[0] = Point2d(up,left);
+                        p[1] = Point2d(down,left);
+                        p[2] = Point2d(down,right);
+                        p[3] = Point2d(up,right);
+                        for(int i = 0; i < 4; i++)
+                            line(withLines,p[i],p[(i + 1 < 4) ? i + 1 : 0],Scalar(0,255,0),2);
+                        counterCircle++;
+                    }
+                    else
+                        counterSquare++;
+                     std :: cout << "amount " << amount  << " " << down<< " " << up << " " << right << " " << left << " " << amount / double((abs(left - right)*abs(down- up)) + 1) << " " << M_PI/4 << std ::  endl;
                 }
-                else
-                    counterSquare++;
                 //std :: cout << rightUp.y - leftUp.y << std :: endl;
-
-                std :: cout << "amount " << amount  << " " << down<< " " << up << " " << right << " " << left << " " << amount / double((abs(left - right)*abs(down- up)) + 1) << " " << M_PI/4 << std ::  endl;
             }
         }
     }
