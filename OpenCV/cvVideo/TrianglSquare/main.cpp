@@ -25,6 +25,7 @@ void drawTriangle(const Point2f & p1,const Point2f & p2,const Point2f & p3,Mat &
 }
 void drawFigures(int amount, Mat & img)
 {
+    std :: cout << "I am here" << std :: endl;
     srand(time(0));
     for(int i = 0; i < amount; i++)
     {
@@ -60,6 +61,7 @@ void drawFigures(int amount, Mat & img)
             }
         }
     }
+    std :: cout << "I am finishing drawing" << std :: endl;
 }
 void isRectangle(Mat & image,int  x, int  y,int &  up, int & down, int & right, int & left,int & amount)
 {
@@ -86,19 +88,19 @@ void noise(int amount,Mat & image)
 {
     std :: cout << image.cols << " " << image.rows << std :: endl;
     for(int i = 0; i < amount; i++)
-        image.at<Vec3f>(rand()%(image.cols - 3),rand()%(image.rows - 3)) = Vec3f(rand()%255,rand()%255,rand()%255);
+        image.at<Vec3f>(rand()%(image.cols - 10),rand()%(image.rows - 10)) = Vec3f(rand()%255,rand()%255,rand()%255);
     std :: cout << " and here" << std :: endl;
 }
 
 int main()
 {
-    Mat image = Mat::zeros(800,800,CV_8UC3);
+    Mat image = Mat::zeros(600,600,CV_8UC3);
     image.setTo(cv::Scalar(255,0,128));
     Mat output = image.clone();
     namedWindow("Original");
     drawFigures(4,image);
     imshow("Original",image);
-    noise(10009,image);
+    noise(3000,image);
     GaussianBlur( image, output, Size( 5, 5), 0, 0 );
     namedWindow("GaussianBlur");
     imshow("GaussianBlur",output);
@@ -124,7 +126,7 @@ int main()
                 isRectangle(result,i,j,up,down,right,left,amount);
                 if(amount > 10)
                 {
-                    if(fabs(amount / double((abs(left - right)*abs(up - down)) + 1 ) - M_PI/4) < 0.18 && fabs(fabs(left - right) - fabs(up - down)) < 6)
+                    if(fabs(amount / double((abs(left - right)*abs(up - down)) + 1 ) - M_PI/4) < 0.2 && fabs(fabs(left - right) - fabs(up - down)) < 6)
                     {
                         Point p[4];
                         p[0] = Point2d(up,left);
@@ -132,7 +134,7 @@ int main()
                         p[2] = Point2d(down,right);
                         p[3] = Point2d(up,right);
                         for(int i = 0; i < 4; i++)
-                            line(withLines,p[i],p[(i + 1 < 4) ? i + 1 : 0],Scalar(0,255,0),2);
+                            line(withLines,p[i],p[(i + 1 < 4) ? i + 1 : 0],Scalar(0,255,0),1);
                         counterCircle++;
                     }
                     else
@@ -140,10 +142,12 @@ int main()
                      std :: cout << "amount " << amount  << " " << down<< " " << up << " " << right << " " << left << " " << amount / double((abs(left - right)*abs(down- up)) + 1) << " " << M_PI/4 << std ::  endl;
                 }
                 //std :: cout << rightUp.y - leftUp.y << std :: endl;
-            }
+             }
         }
     }
+    std :: cout << "I am before with lines" << std :: endl;
     imshow("With lines",withLines);
+    std :: cout << " I am after lines" << std :: endl;
     std :: cout << counterCircle << " circle" << std :: endl;
     std :: cout << counterSquare << " square " << std :: endl;
     waitKey(0);

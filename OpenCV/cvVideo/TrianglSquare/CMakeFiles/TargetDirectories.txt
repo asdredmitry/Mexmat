@@ -1,0 +1,1 @@
+/home/dmitry/New/Mexmat/OpenCV/cvVideo/TrianglSquare/CMakeFiles/main.dir
